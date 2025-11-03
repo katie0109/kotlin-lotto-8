@@ -22,4 +22,12 @@ class PurchaseAmountTest {
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("[ERROR]")
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = [0, -1000])
+    fun `구매 금액이 1000원 미만이면 예외가 발생한다`(amount: Int) {
+        assertThatThrownBy { PurchaseAmount(amount) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+    }
 }
