@@ -2,6 +2,7 @@ package lotto.view
 
 import lotto.Lotto
 import lotto.domain.LottoStatistics
+import lotto.domain.PurchaseAmount
 import lotto.domain.Rank
 import java.text.DecimalFormat
 
@@ -46,5 +47,10 @@ object OutputView {
         val count = statistics.getCount(Rank.SECOND)
         val prizeMoney = moneyFormat.format(Rank.SECOND.prizeMoney)
         println("5개 일치, 보너스 볼 일치 (${prizeMoney}원) - ${count}개")
+    }
+
+    fun printProfitRate(statistics: LottoStatistics, purchaseAmount: PurchaseAmount) {
+        val profitRate = statistics.calculateProfitRate(purchaseAmount)
+        println("총 수익률은 ${profitRate}%입니다.")
     }
 }

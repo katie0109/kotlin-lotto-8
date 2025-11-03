@@ -2,6 +2,7 @@ package lotto.view
 
 import lotto.Lotto
 import lotto.domain.LottoStatistics
+import lotto.domain.PurchaseAmount
 import lotto.domain.Rank
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -84,5 +85,16 @@ class OutputViewTest {
         assertThat(output).contains("5개 일치 (1,500,000원) - 0개")
         assertThat(output).contains("5개 일치, 보너스 볼 일치 (30,000,000원) - 0개")
         assertThat(output).contains("6개 일치 (2,000,000,000원) - 0개")
+    }
+
+    @Test
+    fun `총 수익률을 출력할 수 있다`() {
+        val ranks = listOf(Rank.FIFTH)
+        val statistics = LottoStatistics(ranks)
+        val purchaseAmount = PurchaseAmount(8000)
+
+        OutputView.printProfitRate(statistics, purchaseAmount)
+
+        assertThat(outputStream.toString()).contains("총 수익률은 62.5%입니다.")
     }
 }
