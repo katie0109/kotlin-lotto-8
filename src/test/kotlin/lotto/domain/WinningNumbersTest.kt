@@ -52,4 +52,15 @@ class WinningNumbersTest {
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("[ERROR]")
     }
+
+    @Test
+    fun `당첨 번호에 중복이 있으면 예외가 발생한다`() {
+        assertThatThrownBy { WinningNumbers.from("1,2,3,4,5,5") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+
+        assertThatThrownBy { WinningNumbers.from("1,1,2,3,4,5") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+    }
 }
