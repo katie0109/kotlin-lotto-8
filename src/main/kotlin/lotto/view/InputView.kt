@@ -30,4 +30,15 @@ object InputView {
         println("당첨 번호를 입력해 주세요.")
         return Console.readLine()
     }
+
+    fun readValidWinningNumbers(): WinningNumbers {
+        while (true) {
+            try {
+                val input = readWinningNumbers()
+                return WinningNumbers.from(input)
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+            }
+        }
+    }
 }
