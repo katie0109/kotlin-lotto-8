@@ -10,4 +10,10 @@ class LottoStatistics(ranks: List<Rank?>) {
     fun getCount(rank: Rank): Int {
         return rankCounts[rank] ?: 0
     }
+
+    fun getTotalPrizeMoney(): Int {
+        return rankCounts.entries.sumOf { (rank, count) ->
+            rank.prizeMoney * count
+        }
+    }
 }

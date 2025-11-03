@@ -37,4 +37,32 @@ class LottoStatisticsTest {
 
         assertThat(statistics.getCount(Rank.FIFTH)).isEqualTo(0)
     }
+
+    @Test
+    fun `총 당첨 금액을 계산할 수 있다`() {
+        val ranks = listOf(Rank.FIFTH, Rank.FOURTH, Rank.FIFTH, null)
+        // 5등(5,000) * 2 + 4등(50,000) * 1 = 60,000
+
+        val statistics = LottoStatistics(ranks)
+
+        assertThat(statistics.getTotalPrizeMoney()).isEqualTo(60_000)
+    }
+
+    @Test
+    fun `당첨되지 않으면 총 당첨 금액은 0이다`() {
+        val ranks = listOf(null, null, null)
+
+        val statistics = LottoStatistics(ranks)
+
+        assertThat(statistics.getTotalPrizeMoney()).isEqualTo(0)
+    }
+
+    @Test
+    fun `1등에 당첨되면 총 당첨 금액은 20억이다`() {
+        val ranks = listOf(Rank.FIRST)
+
+        val statistics = LottoStatistics(ranks)
+
+        assertThat(statistics.getTotalPrizeMoney()).isEqualTo(2_000_000_000)
+    }
 }
