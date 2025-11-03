@@ -16,4 +16,10 @@ object OutputView {
     fun printLottos(lottos: List<Lotto>) {
         lottos.forEach { printLotto(it) }
     }
+
+    fun printStatisticsHeader() {
+        println()
+        println("당첨 통계")
+        println("---")
+    }
 }

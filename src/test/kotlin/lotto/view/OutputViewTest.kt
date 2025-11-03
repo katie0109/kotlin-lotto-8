@@ -59,4 +59,13 @@ class OutputViewTest {
         assertThat(output).contains("[8, 21, 23, 41, 42, 43]")
         assertThat(output).contains("[3, 5, 11, 16, 32, 38]")
     }
+
+    @Test
+    fun `당첨 통계 헤더를 출력할 수 있다`() {
+        OutputView.printStatisticsHeader()
+
+        val output = outputStream.toString()
+        assertThat(output).contains("당첨 통계")
+        assertThat(output).contains("---")
+    }
 }
