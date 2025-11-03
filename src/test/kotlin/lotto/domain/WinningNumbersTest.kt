@@ -1,6 +1,7 @@
 package lotto.domain
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class WinningNumbersTest {
@@ -17,5 +18,16 @@ class WinningNumbersTest {
         val winningNumbers = WinningNumbers.from("1, 2, 3, 4, 5, 6")
 
         assertThat(winningNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6)
+    }
+
+    @Test
+    fun `당첨 번호가 6개가 아니면 예외가 발생한다`() {
+        assertThatThrownBy { WinningNumbers.from("1,2,3,4,5") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+
+        assertThatThrownBy { WinningNumbers.from("1,2,3,4,5,6,7") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
     }
 }
