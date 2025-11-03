@@ -44,4 +44,12 @@ class LottoTest {
         }
         assertTrue(exception.message!!.contains("[ERROR]"))
     }
+
+    @Test
+    fun `로또 번호에 중복된 숫자가 있으면 예외가 발생한다`() {
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            Lotto(listOf(1, 2, 3, 4, 5, 5))
+        }
+        assertTrue(exception.message!!.contains("[ERROR]"))
+    }
 }
