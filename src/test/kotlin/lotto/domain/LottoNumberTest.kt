@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
 
 class LottoNumberTest {
 
@@ -22,5 +25,24 @@ class LottoNumberTest {
             LottoNumber(number)
         }
         assertTrue(exception.message!!.contains("[ERROR]"))
+    }
+
+    @Test
+    fun `로또 번호는 오름차순으로 정렬할 수 있다`() {
+        val numbers = listOf(
+            LottoNumber(45),
+            LottoNumber(1),
+            LottoNumber(20),
+            LottoNumber(10)
+        )
+
+        val sortedNumbers = numbers.sorted()
+
+        assertThat(sortedNumbers).containsExactly(
+            LottoNumber(1),
+            LottoNumber(10),
+            LottoNumber(20),
+            LottoNumber(45)
+        )
     }
 }
