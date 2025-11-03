@@ -1,6 +1,7 @@
 package lotto.domain
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
@@ -12,5 +13,13 @@ class PurchaseAmountTest {
         val purchaseAmount = PurchaseAmount(amount)
 
         assertThat(purchaseAmount.value).isEqualTo(amount)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [500, 1500, 2300, 10001])
+    fun `구매 금액이 1000원 단위가 아니면 예외가 발생한다`(amount: Int) {
+        assertThatThrownBy { PurchaseAmount(amount) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
     }
 }
