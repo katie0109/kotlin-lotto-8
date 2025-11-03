@@ -14,11 +14,31 @@ class LottoController {
 
         val winningNumbers = InputView.readValidWinningNumbers()
         val bonusNumber = InputView.readValidBonusNumber(winningNumbers)
+
+        val statistics = calculateStatistics(lottoStore, winningNumbers, bonusNumber)
+        printResult(statistics, purchaseAmount)
     }
 
     private fun purchaseLottos(purchaseAmount: PurchaseAmount): LottoStore {
         val count = purchaseAmount.getLottoCount()
         val lottos = LottoMachine.generateLottos(count)
         return LottoStore(lottos)
+    }
+
+    private fun calculateStatistics(
+        lottoStore: LottoStore,
+        winningNumbers: WinningNumbers,
+        bonusNumber: BonusNumber
+    ): LottoStatistics {
+        val ranks = lottoStore.getLottos().map { lotto ->
+            LottoMatcher.match(lotto, winningNumbers, bonusNumber)
+        }
+        return LottoStatistics(ranks)
+    }
+
+    private fun printResult(statistics: LottoStatistics, purchaseAmount: PurchaseAmount) {
+        OutputView.printStatisticsHeader()
+        OutputView.printStatistics(statistics)
+        OutputView.printProfitRate(statistics, purchaseAmount)
     }
 }
