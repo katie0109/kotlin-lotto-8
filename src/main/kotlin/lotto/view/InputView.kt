@@ -1,6 +1,7 @@
 package lotto.view
 
 import camp.nextstep.edu.missionutils.Console
+import lotto.domain.BonusNumber
 import lotto.domain.PurchaseAmount
 import lotto.domain.WinningNumbers
 
@@ -46,5 +47,19 @@ object InputView {
         println()
         println("보너스 번호를 입력해 주세요.")
         return Console.readLine()
+    }
+
+    fun readValidBonusNumber(winningNumbers: WinningNumbers): BonusNumber {
+        while (true) {
+            try {
+                val input = readBonusNumber()
+                val number = input.toInt()
+                return BonusNumber.of(number, winningNumbers)
+            } catch (e: NumberFormatException) {
+                println("[ERROR] 보너스 번호는 숫자여야 합니다.")
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+            }
+        }
     }
 }
