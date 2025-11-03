@@ -9,4 +9,15 @@ enum class Rank(
     THIRD(5, 1_500_000),
     FOURTH(4, 50_000),
     FIFTH(3, 5_000);
+
+    companion object {
+        fun of(matchCount: Int, bonusMatch: Boolean): Rank? {
+            if (matchCount < FIFTH.matchCount) {
+                return null
+            }
+            return entries.find { rank ->
+                rank.matchCount == matchCount && rank != SECOND
+            }
+        }
+    }
 }

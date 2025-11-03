@@ -2,6 +2,8 @@ package lotto.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class RankTest {
 
@@ -43,5 +45,25 @@ class RankTest {
 
         assertThat(rank.matchCount).isEqualTo(3)
         assertThat(rank.prizeMoney).isEqualTo(5_000)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "6, false, FIRST",
+        "4, false, FOURTH",
+        "3, false, FIFTH"
+    )
+    fun `일치 개수로 등수를 판정할 수 있다`(matchCount: Int, bonusMatch: Boolean, expectedRank: Rank) {
+        val rank = Rank.of(matchCount, bonusMatch)
+
+        assertThat(rank).isEqualTo(expectedRank)
+    }
+
+    @ParameterizedTest
+    @CsvSource("0", "1", "2")
+    fun `3개 미만 일치하면 당첨되지 않는다`(matchCount: Int) {
+        val rank = Rank.of(matchCount, false)
+
+        assertThat(rank).isNull()
     }
 }
