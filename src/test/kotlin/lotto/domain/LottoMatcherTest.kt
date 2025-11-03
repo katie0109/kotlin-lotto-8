@@ -35,4 +35,24 @@ class LottoMatcherTest {
 
         assertThat(matchCount).isEqualTo(0)
     }
+
+    @Test
+    fun `로또 번호에 보너스 번호가 포함되어 있으면 true를 반환한다`() {
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 7))
+        val bonusNumber = BonusNumber(7)
+
+        val hasBonus = LottoMatcher.matchesBonus(lotto, bonusNumber)
+
+        assertThat(hasBonus).isTrue()
+    }
+
+    @Test
+    fun `로또 번호에 보너스 번호가 포함되어 있지 않으면 false를 반환한다`() {
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        val bonusNumber = BonusNumber(7)
+
+        val hasBonus = LottoMatcher.matchesBonus(lotto, bonusNumber)
+
+        assertThat(hasBonus).isFalse()
+    }
 }
