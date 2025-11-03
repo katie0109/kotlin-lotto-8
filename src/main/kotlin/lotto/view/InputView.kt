@@ -2,6 +2,7 @@ package lotto.view
 
 import camp.nextstep.edu.missionutils.Console
 import lotto.domain.PurchaseAmount
+import lotto.domain.WinningNumbers
 
 object InputView {
 
@@ -22,5 +23,11 @@ object InputView {
                 println(e.message)
             }
         }
+    }
+
+    fun readWinningNumbers(): String {
+        println()
+        println("당첨 번호를 입력해 주세요.")
+        return Console.readLine()
     }
 }
