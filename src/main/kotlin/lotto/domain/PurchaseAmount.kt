@@ -12,6 +12,10 @@ value class PurchaseAmount(val value: Int) {
         }
     }
 
+    fun getLottoCount(): Int {
+        return value / LOTTO_PRICE
+    }
+
     companion object {
         private const val LOTTO_PRICE = 1000
     }
