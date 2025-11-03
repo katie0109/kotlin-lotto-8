@@ -41,4 +41,15 @@ class WinningNumbersTest {
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("[ERROR]")
     }
+
+    @Test
+    fun `당첨 번호가 1부터 45 범위를 벗어나면 예외가 발생한다`() {
+        assertThatThrownBy { WinningNumbers.from("0,2,3,4,5,6") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+
+        assertThatThrownBy { WinningNumbers.from("1,2,3,4,5,46") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+    }
 }
