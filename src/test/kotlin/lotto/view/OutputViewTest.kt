@@ -1,6 +1,8 @@
 package lotto.view
 
 import lotto.Lotto
+import lotto.domain.LottoStatistics
+import lotto.domain.Rank
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -67,5 +69,20 @@ class OutputViewTest {
         val output = outputStream.toString()
         assertThat(output).contains("당첨 통계")
         assertThat(output).contains("---")
+    }
+
+    @Test
+    fun `등수별 당첨 내역을 출력할 수 있다`() {
+        val ranks = listOf(Rank.FIFTH, Rank.FOURTH, Rank.FIFTH)
+        val statistics = LottoStatistics(ranks)
+
+        OutputView.printStatistics(statistics)
+
+        val output = outputStream.toString()
+        assertThat(output).contains("3개 일치 (5,000원) - 2개")
+        assertThat(output).contains("4개 일치 (50,000원) - 1개")
+        assertThat(output).contains("5개 일치 (1,500,000원) - 0개")
+        assertThat(output).contains("5개 일치, 보너스 볼 일치 (30,000,000원) - 0개")
+        assertThat(output).contains("6개 일치 (2,000,000,000원) - 0개")
     }
 }
