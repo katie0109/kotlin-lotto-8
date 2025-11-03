@@ -8,6 +8,9 @@ class Lotto(private val numbers: List<Int>) {
         }
     }
 
+    fun getNumbers(): List<Int> {
+        return numbers.sorted()
+    }
 
     // TODO: 추가 기능 구현
     companion object {

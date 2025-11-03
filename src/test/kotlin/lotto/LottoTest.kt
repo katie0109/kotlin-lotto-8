@@ -52,4 +52,11 @@ class LottoTest {
         }
         assertTrue(exception.message!!.contains("[ERROR]"))
     }
+
+    @Test
+    fun `로또 번호는 오름차순으로 정렬되어 반환된다`() {
+        val lotto = Lotto(listOf(45, 8, 23, 1, 14, 32))
+
+        assertThat(lotto.getNumbers()).containsExactly(1, 8, 14, 23, 32, 45)
+    }
 }
