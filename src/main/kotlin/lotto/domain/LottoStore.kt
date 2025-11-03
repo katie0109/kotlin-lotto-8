@@ -7,4 +7,8 @@ class LottoStore(private val lottos: List<Lotto>) {
     fun getLottos(): List<Lotto> {
         return lottos
     }
+
+    fun getCount(): Int {
+        return lottos.size
+    }
 }
