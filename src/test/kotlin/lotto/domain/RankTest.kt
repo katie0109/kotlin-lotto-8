@@ -66,4 +66,18 @@ class RankTest {
 
         assertThat(rank).isNull()
     }
+
+    @Test
+    fun `5개 일치하고 보너스 번호가 일치하면 2등이다`() {
+        val rank = Rank.of(5, true)
+
+        assertThat(rank).isEqualTo(Rank.SECOND)
+    }
+
+    @Test
+    fun `5개 일치하고 보너스 번호가 일치하지 않으면 3등이다`() {
+        val rank = Rank.of(5, false)
+
+        assertThat(rank).isEqualTo(Rank.THIRD)
+    }
 }

@@ -15,6 +15,9 @@ enum class Rank(
             if (matchCount < FIFTH.matchCount) {
                 return null
             }
+            if (matchCount == SECOND.matchCount && bonusMatch) {
+                return SECOND
+            }
             return entries.find { rank ->
                 rank.matchCount == matchCount && rank != SECOND
             }
