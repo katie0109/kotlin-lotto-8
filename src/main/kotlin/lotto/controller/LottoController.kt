@@ -1,7 +1,6 @@
 package lotto.controller
 
-import lotto.domain.LottoMachine
-import lotto.domain.LottoStore
+import lotto.domain.*
 import lotto.view.InputView
 import lotto.view.OutputView
 
@@ -12,9 +11,12 @@ class LottoController {
         val lottoStore = purchaseLottos(purchaseAmount)
         OutputView.printLottoCount(lottoStore.getCount())
         OutputView.printLottos(lottoStore.getLottos())
+
+        val winningNumbers = InputView.readValidWinningNumbers()
+        val bonusNumber = InputView.readValidBonusNumber(winningNumbers)
     }
 
-    private fun purchaseLottos(purchaseAmount: lotto.domain.PurchaseAmount): LottoStore {
+    private fun purchaseLottos(purchaseAmount: PurchaseAmount): LottoStore {
         val count = purchaseAmount.getLottoCount()
         val lottos = LottoMachine.generateLottos(count)
         return LottoStore(lottos)
