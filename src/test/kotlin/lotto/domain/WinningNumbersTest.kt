@@ -30,4 +30,15 @@ class WinningNumbersTest {
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("[ERROR]")
     }
+
+    @Test
+    fun `당첨 번호에 숫자가 아닌 값이 포함되면 예외가 발생한다`() {
+        assertThatThrownBy { WinningNumbers.from("1,2,3,a,5,6") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+
+        assertThatThrownBy { WinningNumbers.from("1,2,3,4.5,5,6") }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("[ERROR]")
+    }
 }
