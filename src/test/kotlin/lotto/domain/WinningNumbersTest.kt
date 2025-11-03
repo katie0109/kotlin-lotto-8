@@ -1,0 +1,21 @@
+package lotto.domain
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+class WinningNumbersTest {
+
+    @Test
+    fun `쉼표로 구분된 문자열을 파싱하여 당첨 번호를 생성할 수 있다`() {
+        val winningNumbers = WinningNumbers.from("1,2,3,4,5,6")
+
+        assertThat(winningNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6)
+    }
+
+    @Test
+    fun `공백이 포함된 문자열을 파싱할 수 있다`() {
+        val winningNumbers = WinningNumbers.from("1, 2, 3, 4, 5, 6")
+
+        assertThat(winningNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6)
+    }
+}
